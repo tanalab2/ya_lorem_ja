@@ -27,7 +27,7 @@ lorem = YaLoremJa::Lorem.new
 puts lorem.word
 
 # puts ten words.
-puts lorem.word(10)
+puts lorem.words(10)
 
 # puts a sentence.
 puts lorem.sentence
