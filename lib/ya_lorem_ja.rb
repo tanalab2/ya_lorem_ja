@@ -19,7 +19,7 @@ module YaLoremJa
     # @param [Range] word_count_range range of word count in sentence
     # @param [Range] sentence_count_range renage of sentence count in paragraph
     # 
-    def initialize(resource_name=:kazehakase, char_count_range=2..6, word_count_range=6..20, sentence_count_range=2..5)
+    def initialize(resource_name=:kazehakase, char_count_range=2..6, word_count_range=6..15, sentence_count_range=2..5)
       @resource_name = resource_name
       # 文章辞書の読み込み
       @resource = ::YaLoremJa::WordResources.load(resource_name, char_count_range, word_count_range, sentence_count_range)
@@ -108,7 +108,40 @@ module YaLoremJa
     # @return [String] paragraph 
     def paragraphs(total)
       @resource.paragraphs(total)
-    end    
+    end
+
+
+    def date(fmt='%Y年%m月%d日')
+      y = rand(20) + 1990
+      m = rand(12) + 1
+      d = rand(31) + 1
+      Time.local(y, m, d).strftime(fmt)
+    end
+
+    
+    # Get a placeholder image, using placehold.it by default
+    # @param [String] size
+    # @param [Hash] options
+    # @return [String]
+    def image(size, options={})
+      domain           = options[:domain] || 'http://placehold.it'
+      src              = "#{domain}/#{size}"
+      hex              = %w(a b c d e f 0 1 2 3 4 5 6 7 8 9)
+      background_color = options[:background_color]
+      color            = options[:color]
+
+      if options[:random_color]
+        background_color = hex.shuffle[0...6].join
+        color = hex.shuffle[0...6].join
+      end
+
+      src << "/#{background_color.sub(/^#/, '')}" if background_color
+      src << '/ccc' if background_color.nil? && color
+      src << "/#{color.sub(/^#/, '')}" if color
+      src << "&text=#{Rack::Utils.escape(options[:text])}" if options[:text]
+
+      src
+    end
     
   end
 end

@@ -88,7 +88,17 @@ describe YaLoremJa do
     paras.split("\r\n"*2).each do |a_para|
       expect(a_para.split("\r\n").count).to be >= lorem.sentence_count_range.min
     end
+  end
 
+  it '日付を取得できること' do
+    lorem = YaLoremJa::Lorem.new
+    expect(lorem.date).to match /^\d{4}年\d{2}月\d{2}日$/
+    expect(lorem.date('%Y-%m-%d')).to match /^\d{4}-\d{2}-\d{2}$/
+  end
+
+  it '画像URLを取得できること' do
+    lorem = YaLoremJa::Lorem.new
+    expect(lorem.image('20x20')).to match %r!^http://placehold.it/20x20$!
   end
   
 end

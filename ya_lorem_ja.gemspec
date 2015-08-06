@@ -7,7 +7,6 @@ Gem::Specification.new do |spec|
   spec.name          = "ya_lorem_ja"
   spec.version       = YaLoremJa::VERSION
   spec.authors       = ["kenji tanaka"]
-  #spec.email         = ["tanalab2@gmail.com"]
   spec.description   = %q{Yet Another Japanese Lorem Ipsum generator}
   spec.summary       = %q{Yet Another Japanese Lorem Ipsum generator}
   spec.homepage      = "https://github.com/tanalab2/ya_lorem_ja"
