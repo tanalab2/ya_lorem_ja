@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 require "ya_lorem_ja/version"
 require 'ya_lorem_ja/word_resource'
-require 'ya_lorem_ja/resources/kazehakase'
 
-  
 ##
 # Yet Anothoer Japanese Lorem
 # 
@@ -12,6 +10,11 @@ module YaLoremJa
   # Japanese Lorem
   class Lorem
     attr_reader :resource_name
+
+    DEFAULT_RESOURCE_NAME = :kazehakase
+    DEFAULT_CHAR_COUNT_RANGE_IN_WORD = 2..6
+    DEFAULT_WORD_COUNT_RANGE_IN_SENTENCE = 6..15
+    DEFAULT_SENTENCE_COUNT_RANGE_IN_PARAGRAPH = 2..5
     
     ##
     # @param [Symbol] resource_name name of word resource
@@ -19,8 +22,15 @@ module YaLoremJa
     # @param [Range] word_count_range range of word count in sentence
     # @param [Range] sentence_count_range renage of sentence count in paragraph
     # 
-    def initialize(resource_name=:kazehakase, char_count_range=2..6, word_count_range=6..15, sentence_count_range=2..5)
+    def initialize(resource_name=DEFAULT_RESOURCE_NAME, char_count_range=DEFAULT_CHAR_COUNT_RANGE_IN_WORD, word_count_range=DEFAULT_WORD_COUNT_RANGE_IN_SENTENCE, sentence_count_range=DEFAULT_SENTENCE_COUNT_RANGE_IN_PARAGRAPH)
       @resource_name = resource_name
+
+      # require
+      begin
+        require File.join('ya_lorem_ja/resources', resource_name.to_s)
+      rescue LoadError
+      end
+      
       # 文章辞書の読み込み
       @resource = ::YaLoremJa::WordResources.load(resource_name, char_count_range, word_count_range, sentence_count_range)
     end

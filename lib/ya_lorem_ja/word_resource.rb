@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 module YaLoremJa
-
+  
   ##
   # manage word resources
   module WordResources
