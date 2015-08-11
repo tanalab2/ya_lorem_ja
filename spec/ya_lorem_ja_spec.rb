@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'pp'
 
 describe YaLoremJa do
   it 'should have a version number' do
@@ -58,6 +59,15 @@ describe YaLoremJa do
     puts a_para
     expect(a_para.split(/\n{1}/).count).to be >= lorem.sentence_count_range.min
   end
+
+  it '<p></p>で囲まれた1段落を取得できること' do
+    lorem = YaLoremJa::Lorem.new
+    a_para =  lorem.paragraph(start_sep: "<p>", end_sep: "</p>")
+    expect(a_para).not_to be_nil
+    puts a_para
+    expect(a_para).to match %r|<p>.+</p>|m
+    
+  end  
 
   it '3段落を取得できること' do
     lorem = YaLoremJa::Lorem.new

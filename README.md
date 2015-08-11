@@ -52,8 +52,8 @@ Middleman の lorem のインターフェースを参考にしています。
 - words(num_of_words)
 - sentence
 - sentences(num_of_sentces)
-- paragraph
-- paragraphs(num_of_paragraph)
+- paragraph(options={})
+- paragraphs(num_of_paragraph, options={})
 - date(format)
 - image(size, options={})
 
@@ -69,7 +69,8 @@ sentence(or sentence)が指定された場合は、1文あたり6〜15単語(コ
 複数文(例: sentences(3))を指定した場合は、改行文字(デフォルト "\n", line_breakプロパティで変更可)で各文を結合します。
 
 paragraph(or paragraphs)が指定された場合は、1段落あたり2〜5文(コンストラクタで変更可)の範囲でランダムに文数を決定し、文を選択します。
-複数段落(例: paragraphs(3))を指定した場合は、2つ分の改行文字(デフォルト "\n\n)を段落区切りとして設定します。
+段落の前後に設定するセパレータを、オプション引数の開始セパレータ(:start_sep), 終了セパレータ(:end_sep) で指定できます。
+(デフォルトは、開始セパレータは空文字で、終了セパレータは2つ分の改行文字になります。)
 
 ## 文章リソース
 

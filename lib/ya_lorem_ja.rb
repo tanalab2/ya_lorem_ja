@@ -108,16 +108,18 @@ module YaLoremJa
     ##
     # return a random paragraph from word resource
     # @return [String] sentence     
-    def paragraph
-      @resource.paragraph
+    def paragraph(opts={  })
+      @resource.paragraph(opts)
     end
 
     ##
     # return random paragraphs from word resource
     # @param [Fixnum] total count of paragraph
     # @return [String] paragraph 
-    def paragraphs(total)
-      @resource.paragraphs(total)
+    def paragraphs(total, opts={  })
+      default_opts = { start_sep: "", end_sep: line_break * 2 }
+      merged_opts = default_opts.merge(opts)
+      @resource.paragraphs(total, merged_opts)
     end
 
 

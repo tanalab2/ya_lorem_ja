@@ -121,21 +121,23 @@ module YaLoremJa
     ##
     # return a random paragraph from word resource
     # @return [String] sentence     
-    def paragraph
-      paragraphs(1)
+    def paragraph(opts)
+      paragraphs(1, opts)
     end
 
     ##
     # return random paragraphs from word resource
     # @param [Fixnum] total count of paragraph
     # @return [String] paragraph     
-    def paragraphs(total)
+    def paragraphs(total, opts)
       list = []
       total.times do
         sentence_count = rand(sentence_count_range_in_a_paragraph)
-        list << self.sentences(sentence_count)
+        start_sep = opts[:start_sep].to_s
+        end_sep = opts[:end_sep].to_s
+        list << start_sep + self.sentences(sentence_count) + end_sep
       end
-      return list.join(@line_break * 2)
+      return list.join()
     end
 
     private
