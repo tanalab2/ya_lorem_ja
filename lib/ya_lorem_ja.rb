@@ -4,7 +4,7 @@ require 'ya_lorem_ja/word_resource'
 
 ##
 # Yet Anothoer Japanese Lorem
-# 
+#
 module YaLoremJa
   ##
   # Japanese Lorem
@@ -15,13 +15,13 @@ module YaLoremJa
     DEFAULT_CHAR_COUNT_RANGE_IN_WORD = 2..6
     DEFAULT_WORD_COUNT_RANGE_IN_SENTENCE = 6..15
     DEFAULT_SENTENCE_COUNT_RANGE_IN_PARAGRAPH = 2..5
-    
+
     ##
     # @param [Symbol] resource_name name of word resource
     # @param [Range] char_count_range range of character count in a word
     # @param [Range] word_count_range range of word count in sentence
     # @param [Range] sentence_count_range renage of sentence count in paragraph
-    # 
+    #
     def initialize(resource_name=DEFAULT_RESOURCE_NAME, char_count_range=DEFAULT_CHAR_COUNT_RANGE_IN_WORD, word_count_range=DEFAULT_WORD_COUNT_RANGE_IN_SENTENCE, sentence_count_range=DEFAULT_SENTENCE_COUNT_RANGE_IN_PARAGRAPH)
       @resource_name = resource_name
 
@@ -30,9 +30,13 @@ module YaLoremJa
         require File.join('ya_lorem_ja/resources', resource_name.to_s)
       rescue LoadError
       end
-      
+
       # 文章辞書の読み込み
       @resource = ::YaLoremJa::WordResources.load(resource_name, char_count_range, word_count_range, sentence_count_range)
+    end
+
+    def reload_resource(resource_name=DEFAULT_RESOURCE_NAME, char_count_range=DEFAULT_CHAR_COUNT_RANGE_IN_WORD, word_count_range=DEFAULT_WORD_COUNT_RANGE_IN_SENTENCE, sentence_count_range=DEFAULT_SENTENCE_COUNT_RANGE_IN_PARAGRAPH)
+      initialize(resource_name, char_count_range, word_count_range, sentence_count_range)
     end
 
     ##
@@ -46,7 +50,7 @@ module YaLoremJa
     def word_count_range
       return @resource.word_count_range_in_a_sentence
     end
-    
+
     ##
     # @return [Range] range of sentence count in a paragraph
     def sentence_count_range
@@ -91,7 +95,7 @@ module YaLoremJa
 
     ##
     # return a random sentence from word resource
-    # @return [String] sentence 
+    # @return [String] sentence
     def sentence
       @resource.sentence
     end
@@ -107,7 +111,7 @@ module YaLoremJa
 
     ##
     # return a random paragraph from word resource
-    # @return [String] sentence     
+    # @return [String] sentence
     def paragraph(opts={  })
       @resource.paragraph(opts)
     end
@@ -115,7 +119,7 @@ module YaLoremJa
     ##
     # return random paragraphs from word resource
     # @param [Fixnum] total count of paragraph
-    # @return [String] paragraph 
+    # @return [String] paragraph
     def paragraphs(total, opts={  })
       default_opts = { start_sep: "", end_sep: line_break * 2 }
       merged_opts = default_opts.merge(opts)
@@ -130,7 +134,7 @@ module YaLoremJa
       Time.local(y, m, d).strftime(fmt)
     end
 
-    
+
     # Get a placeholder image, using placehold.it by default
     # @param [String] size
     # @param [Hash] options
@@ -154,6 +158,6 @@ module YaLoremJa
 
       src
     end
-    
+
   end
 end

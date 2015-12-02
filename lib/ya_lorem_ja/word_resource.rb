@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 module YaLoremJa
-  
+
   ##
   # manage word resources
   module WordResources
+    @default_resource_name = :kazehakase
     class << self
+
+      def default_resource_name=(resource_name)
+        @default_resource_name = resource_name
+      end
+
       ##
       # retrun repository of word resource
       def resource
@@ -36,7 +42,7 @@ module YaLoremJa
         end
         return kls.new(char_count_range, word_count_range, sentence_count_range)
       end
-      
+
     end
   end
 
@@ -58,7 +64,7 @@ module YaLoremJa
     def initialize(char_count_range, word_count_range, sentence_count_range)
       # 単語の文字数範囲の設定
       @char_count_range_in_a_word = char_count_range
-      # 文の単語数範囲の設定      
+      # 文の単語数範囲の設定
       @word_count_range_in_a_sentence = word_count_range
       # 段落の文数範囲の設定
       @sentence_count_range_in_a_paragraph = sentence_count_range
@@ -72,7 +78,7 @@ module YaLoremJa
 
     ##
     # return a random word from word resource
-    # @return [String] word    
+    # @return [String] word
     def word
       words(1)
     end
@@ -81,7 +87,7 @@ module YaLoremJa
     # return rondom words from word resource
     #
     # @param [Fixnum] total count of word
-    # @return [String] words    
+    # @return [String] words
     def words(num_of_word)
       target_len = num_of_word.times.inject(0){ |sum| sum + rand(@char_count_range_in_a_word) }
       sentence_key = bsearch(sentence_map_keys, target_len)
@@ -89,12 +95,12 @@ module YaLoremJa
         sentence_key = sentence_map.keys.min
       end
       wk_word = sentence_map[sentence_key].sample
-      return wk_word.sub(/[#{ sentence_end_chars.join() }]$/, "")      
+      return wk_word.sub(/[#{ sentence_end_chars.join() }]$/, "")
     end
 
     ##
     # return a random sentence from word resource
-    # @return [String] sentence     
+    # @return [String] sentence
     def sentence
       sentences(1)
     end
@@ -103,7 +109,7 @@ module YaLoremJa
     # return rondom sentences from word resource
     #
     # @param [Fixnum] total count of sentence
-    # @return [String] words    
+    # @return [String] words
     def sentences(total)
       list = []
       total.times do
@@ -120,7 +126,7 @@ module YaLoremJa
 
     ##
     # return a random paragraph from word resource
-    # @return [String] sentence     
+    # @return [String] sentence
     def paragraph(opts)
       paragraphs(1, opts)
     end
@@ -128,7 +134,7 @@ module YaLoremJa
     ##
     # return random paragraphs from word resource
     # @param [Fixnum] total count of paragraph
-    # @return [String] paragraph     
+    # @return [String] paragraph
     def paragraphs(total, opts)
       list = []
       total.times do
@@ -159,5 +165,5 @@ module YaLoremJa
     end
   end
 
-  
+
 end

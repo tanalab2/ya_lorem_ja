@@ -66,8 +66,8 @@ describe YaLoremJa do
     expect(a_para).not_to be_nil
     puts a_para
     expect(a_para).to match %r|<p>.+</p>|m
-    
-  end  
+
+  end
 
   it '3段落を取得できること' do
     lorem = YaLoremJa::Lorem.new
@@ -79,13 +79,13 @@ describe YaLoremJa do
       expect(a_para.split(/\n{1}/).count).to be >= lorem.sentence_count_range.min
     end
   end
-  
+
   it '改行文字を変更時、文の改行文字も変更されること' do
     lorem = YaLoremJa::Lorem.new
     lorem.line_break = "\r\n"
     sentences =  lorem.sentences(3)
     p sentences
-    expect(sentences.split("\r\n").count).to be == 3    
+    expect(sentences.split("\r\n").count).to be == 3
   end
 
   it '改行文字を変更時、段落の改行文字も変更されること' do
@@ -110,5 +110,5 @@ describe YaLoremJa do
     lorem = YaLoremJa::Lorem.new
     expect(lorem.image('20x20')).to match %r!^http://placehold.it/20x20$!
   end
-  
+
 end
